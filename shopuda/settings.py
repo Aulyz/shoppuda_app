@@ -1,5 +1,5 @@
 # File: shopuda/settings.py
-# new branch pminkong
+
 import os
 from pathlib import Path
 
