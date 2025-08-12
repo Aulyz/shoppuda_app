@@ -1,5 +1,6 @@
 # shoppuda_admin
 
+
 폴더별 역할 설명
 📁 core/
 
