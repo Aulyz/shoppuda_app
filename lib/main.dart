@@ -20,29 +20,22 @@ class ShoppudaAdminApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        // 나중에 Provider들을 여기에 추가할 예정
-        // ChangeNotifierProvider(create: (_) => AuthProvider()),
-        // ChangeNotifierProvider(create: (_) => DashboardProvider()),
-        // ChangeNotifierProvider(create: (_) => NotificationProvider()),
-      ],
-      child: MaterialApp(
-        title: 'Shoppuda Admin',
-        debugShowCheckedModeBanner: false, // 디버그 배너 제거
+    // Provider가 준비될 때까지 임시로 일반 MaterialApp 사용
+    return MaterialApp(
+      title: 'Shoppuda Admin',
+      debugShowCheckedModeBanner: false, // 디버그 배너 제거
 
-        // 테마 설정 (다크모드 우선)
-        theme: _buildLightTheme(),
-        darkTheme: _buildDarkTheme(),
-        themeMode: ThemeMode.dark, // 다크모드 기본값
+      // 테마 설정 (다크모드 우선)
+      theme: _buildLightTheme(),
+      darkTheme: _buildDarkTheme(),
+      themeMode: ThemeMode.dark, // 다크모드 기본값
 
-        // 시작 화면 (현재는 임시 화면)
-        home: const TemporaryHomeScreen(),
+      // 시작 화면 (현재는 임시 화면)
+      home: const TemporaryHomeScreen(),
 
-        // 나중에 라우팅 설정 추가
-        // initialRoute: '/splash',
-        // routes: AppRoutes.routes,
-      ),
+      // 나중에 라우팅 설정 추가
+      // initialRoute: '/splash',
+      // routes: AppRoutes.routes,
     );
   }
 
