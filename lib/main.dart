@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Provider들 import (나중에 생성할 예정)
-// import 'providers/auth_provider.dart';
-// import 'providers/dashboard_provider.dart';
-// import 'providers/notification_provider.dart';
-
-// 화면들 import (나중에 생성할 예정)
-// import 'screens/auth/splash_screen.dart';
-// import 'routes/app_routes.dart';
+// 화면들 import
+import 'screens/auth/login_screen.dart';
 
 void main() {
   runApp(const ShoppudaAdminApp());
@@ -30,8 +24,8 @@ class ShoppudaAdminApp extends StatelessWidget {
       darkTheme: _buildDarkTheme(),
       themeMode: ThemeMode.dark, // 다크모드 기본값
 
-      // 시작 화면 (현재는 임시 화면)
-      home: const TemporaryHomeScreen(),
+      // 시작 화면 (로그인 화면으로 변경)
+      home: const LoginScreen(),
 
       // 나중에 라우팅 설정 추가
       // initialRoute: '/splash',
