@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,17 +43,25 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_usernameController.text == 'admin' &&
           _passwordController.text == 'admin123') {
         if (mounted) {
-          // 로그인 성공 - 대시보드로 이동
+          // 로그인 성공 메시지 표시
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('로그인 성공! 대시보드로 이동합니다.'),
               backgroundColor: Colors.green,
+              duration: Duration(seconds: 1),
             ),
           );
 
-          // TODO: 실제 대시보드 화면으로 네비게이션
-          // Navigator.pushReplacement(context,
-          //   MaterialPageRoute(builder: (context) => DashboardScreen()));
+          // 잠시 대기 후 대시보드로 이동
+          await Future.delayed(const Duration(milliseconds: 500));
+
+          if (mounted) {
+            // 대시보드 화면으로 이동 (뒤로가기 방지)
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DashboardScreen()),
+            );
+          }
         }
       } else {
         if (mounted) {
