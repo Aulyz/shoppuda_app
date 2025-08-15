@@ -31,9 +31,9 @@ dependencies:
   # WebSocket (실시간 알림)
   web_socket_channel: ^2.4.0
   
-  # 푸시 알림
-  firebase_messaging: ^14.7.10
-  firebase_core: ^2.24.2
+  # 푸시 알림 (나중에 활성화)
+  # firebase_messaging: ^14.7.10
+  # firebase_core: ^2.24.2
   
   # 이미지 처리
   cached_network_image: ^3.3.0
@@ -65,10 +65,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   
-  # 앱 아이콘 (나중에 설정)
-  # assets:
-  #   - images/
+  # 📁 Assets 설정 - 이미지 파일들
+  assets:
+    - assets/images/
   
   # 폰트 (Google Fonts로 대체)
   # fonts:
-  
