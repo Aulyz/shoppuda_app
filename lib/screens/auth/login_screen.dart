@@ -10,26 +10,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  bool _isPasswordVisible = false;
-  bool _rememberMe = false;
   bool _isLoading = false;
 
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
   Future<void> _handleLogin() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
     setState(() {
       _isLoading = true;
     });
@@ -37,33 +20,21 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await Future.delayed(const Duration(seconds: 2));
 
-      if (_usernameController.text == 'admin' &&
-          _passwordController.text == 'admin123') {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('로그인 성공! 대시보드로 이동합니다.'),
-              backgroundColor: Color(0xFF35C2C1),
-              duration: Duration(seconds: 1),
-            ),
-          );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('로그인 성공! 대시보드로 이동합니다.'),
+            backgroundColor: Color(0xFF35C2C1),
+            duration: Duration(seconds: 1),
+          ),
+        );
 
-          await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 500));
 
-          if (mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const DashboardScreen()),
-            );
-          }
-        }
-      } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('아이디 또는 비밀번호가 올바르지 않습니다.'),
-              backgroundColor: Colors.red,
-            ),
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()),
           );
         }
       }
@@ -258,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('회원가입 페이지로 이동합니다.'),
+                      content: Text('회원가입은 웹페이지를 이용해주시기 바랍니다.'),
                       backgroundColor: Color(0xFF35C2C1),
                     ),
                   );

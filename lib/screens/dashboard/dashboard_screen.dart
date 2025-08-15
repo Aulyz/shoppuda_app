@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../auth/login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -187,14 +188,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
 
         // 프로필 아이콘
-        IconButton(
+        PopupMenuButton<String>(
           icon: const Icon(Icons.account_circle_outlined),
-          onPressed: () {
-            // TODO: 프로필/설정 화면으로 이동
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('프로필 기능 준비 중입니다.')),
-            );
+          onSelected: (String value) {
+            if (value == 'logout') {
+              _showLogoutDialog();
+            } else if (value == 'profile') {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('프로필 기능 준비 중입니다.')),
+              );
+            }
           },
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem<String>(
+              value: 'profile',
+              child: Row(
+                children: [
+                  const Icon(Icons.person, size: 20),
+                  const SizedBox(width: 12),
+                  Text(
+                    '프로필',
+                    style: GoogleFonts.notoSans(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            PopupMenuItem<String>(
+              value: 'logout',
+              child: Row(
+                children: [
+                  const Icon(Icons.logout, size: 20, color: Colors.red),
+                  const SizedBox(width: 12),
+                  Text(
+                    '로그아웃',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 14,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -971,5 +1006,100 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       );
     }
+  }
+
+  // 로그아웃 확인 다이얼로그
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.logout,
+                color: Colors.red,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Text(
+                '로그아웃',
+                style: GoogleFonts.notoSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            '정말로 로그아웃 하시겠습니까?',
+            style: GoogleFonts.notoSans(
+              fontSize: 16,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+              child: Text(
+                '취소',
+                style: GoogleFonts.notoSans(
+                  fontSize: 14,
+                  color: Colors.grey[400],
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                _handleLogout(); // 로그아웃 실행
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                '로그아웃',
+                style: GoogleFonts.notoSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // 로그아웃 처리 함수
+  void _handleLogout() {
+    // TODO: 실제 로그아웃 로직 (토큰 삭제, 상태 초기화 등)
+
+    // 로그아웃 성공 메시지
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('로그아웃되었습니다.'),
+        backgroundColor: Color(0xFF35C2C1),
+        duration: Duration(seconds: 1),
+      ),
+    );
+
+    // 로그인 화면으로 이동 (모든 스택 제거)
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false, // 모든 이전 루트 제거
+    );
   }
 }
