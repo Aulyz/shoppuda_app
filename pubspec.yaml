@@ -68,6 +68,7 @@ flutter:
   # 📁 Assets 설정 - 이미지 파일들
   assets:
     - assets/images/
+    - assets/images/login/
   
   # 폰트 (Google Fonts로 대체)
   # fonts:
